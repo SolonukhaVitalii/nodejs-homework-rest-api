@@ -1,7 +1,7 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-const { httpCodes } = require('./help/code')
+const { httpCodes } = require('./helpers/code')
 
 const contactsRouter = require('./routes/api/contacts')
 

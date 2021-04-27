@@ -1,4 +1,4 @@
-const { httpCodes } = require('../help/code');
+const { httpCodes } = require('../helpers/code');
 const { ContactsServices } = require('../services/contacts');
 
 const contactsServices = new ContactsServices();
