@@ -1,6 +1,7 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
+const { httpCodes } = require('./helpers/code')
 
 const contactsRouter = require('./routes/api/contacts')
 
@@ -14,12 +15,14 @@ app.use(express.json())
 
 app.use('/api/contacts', contactsRouter)
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' })
-})
-
 app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message })
+  err.status = err.status ? err.status : httpCodes.INTERNAL_SERVER_ERROR
+  res.status(err.status).json({
+    status: err.status === 500 ? 'Fail' : 'Error',
+    code: err.status,
+    message: err.message,
+    data: err.status === 500 ? httpCodes.INTERNAL_SERVER_ERROR : err.data,
+  })
 })
 
 module.exports = app
